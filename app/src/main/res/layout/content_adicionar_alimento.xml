@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/fundoclaro"
+    android:background="@color/fundomenosclaro"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".AdicionarAlimentoActivity"
     tools:showIn="@layout/activity_adicionar_alimento">
@@ -20,23 +20,50 @@
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp">
 
-        <AutoCompleteTextView
-            android:id="@+id/campo_nome_alimento"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/as5as695"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="10dp"
-            android:hint="@string/txt_digite_nome_alimento"
-            android:imeOptions="actionDone"
-            android:inputType="text"
-            android:maxLines="1" />
+            android:layout_height="wrap_content">
+
+            <AutoCompleteTextView
+                android:id="@+id/campo_nome_alimento"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:hint="@string/txt_digite_nome_alimento"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:maxLines="1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/botaoLimpar"
+                android:layout_width="27dp"
+                android:layout_height="0dp"
+                android:layout_marginEnd="25dp"
+                android:layout_marginRight="25dp"
+                android:background="#00D1C4C4"
+                android:scaleType="center"
+                android:src="@android:drawable/btn_dialog"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/campo_nome_alimento"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
             <EditText
@@ -136,6 +163,8 @@
                         android:id="@+id/lbl_energia"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginLeft="8dp"
                         android:layout_marginTop="14dp"
                         android:gravity="center"
                         android:text="Energia"
@@ -360,6 +389,7 @@
                     android:layout_height="wrap_content"
 
                     android:layout_marginLeft="0dp"
+                    android:layout_marginRight="0dp"
                     tools:layout_editor_absoluteX="241dp">
 
                     <ProgressBar
@@ -367,10 +397,6 @@
                         style="?android:progressBarStyleHorizontal"
                         android:layout_width="56dp"
                         android:layout_height="56dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginRight="8dp"
                         android:background="@drawable/circlefundo"
                         android:max="100"
                         android:progress="100"
@@ -546,14 +572,31 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraintLayout4"
-                    android:layout_width="146dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginStart="32dp"
                     android:layout_marginLeft="32dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
                     android:layout_weight="2"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/constraintLayout3"
-                    tools:layout_editor_absoluteY="0dp">
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/txt_valores_macros_individual"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:layout_marginLeft="2dp"
+                        android:text="0,1\n3,1\n0,1\n0,0"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/txt_macros"
+                        app:layout_constraintStart_toEndOf="@+id/txt_macros"
+                        app:layout_constraintTop_toTopOf="@+id/txt_macros"
+                        app:lineHeight="20dp" />
 
                     <TextView
                         android:id="@+id/txt_macros"
@@ -561,6 +604,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginLeft="8dp"
+                        android:layout_marginTop="8dp"
                         android:layout_marginBottom="8dp"
                         android:text="Proteínas:\nCarboidratos:\nGorduras:\nFibras:"
                         android:textAlignment="textEnd"
@@ -574,33 +618,20 @@
                         app:lineHeight="21sp" />
 
                     <TextView
-                        android:id="@+id/txt_valores_macros"
+                        android:id="@+id/txt_gramas"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="2dp"
                         android:layout_marginLeft="2dp"
-                        android:text="0,1\n3,1\n0,1\n0,6"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="@+id/txt_macros"
-                        app:layout_constraintStart_toEndOf="@+id/txt_macros"
-                        app:layout_constraintTop_toTopOf="@+id/txt_macros"
-                        app:lineHeight="20dp" />
+                        android:text="g\nr\na\nm\na\ns"
+                        android:textAlignment="center"
+                        android:textSize="12sp"
+                        android:textStyle="normal|italic"
+                        app:layout_constraintBottom_toBottomOf="@+id/txt_valores_macros_individual"
+                        app:layout_constraintStart_toEndOf="@+id/txt_valores_macros_individual"
+                        app:layout_constraintTop_toTopOf="@+id/txt_valores_macros_individual"
+                        app:lineHeight="12dp" />
 
-                    <TextView
-                        android:id="@+id/txt_gramas"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="1dp"
-                        android:layout_marginLeft="1dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="8dp"
-                        android:text="g\ng\ng\ng "
-                        android:textSize="14sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/txt_valores_macros"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:lineHeight="22dp" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -644,6 +675,7 @@
                         android:layout_marginBottom="8dp"
                         android:text="5000"
                         android:textSize="30sp"
+                        android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
@@ -671,8 +703,8 @@
                     android:id="@+id/texto_sem_alimento_selecionado"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginLeft="8dp"
+                    android:layout_marginStart="80dp"
+                    android:layout_marginLeft="80dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
@@ -683,6 +715,23 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="65dp"
+                    android:layout_height="64dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginBottom="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/texto_sem_alimento_selecionado"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/warning2" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <Button

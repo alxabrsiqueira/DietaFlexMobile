@@ -31,11 +31,11 @@ import android.widget.TextView;
 
 import java.io.File;
 import java.io.InputStream;
+import java.util.Collections;
 import java.util.List;
 
 public class ListarRefeicoesActivity extends AppCompatActivity {
     private RecyclerView listaDadosView;
-    private ConstraintLayout layoutLista;
     private ListaAdapter listaAdapter;
 
     private ConstraintLayout   layoutEnergia ;
@@ -103,44 +103,44 @@ public class ListarRefeicoesActivity extends AppCompatActivity {
         metaFibras=Metas.getFibras(getBaseContext());
 
 
-        txtViewEnergiaTotal = (TextView) findViewById(R.id.energia_total) ;
-        txtViewEnergiaMeta = (TextView) findViewById(R.id.energia_meta) ;
-        txtViewEnergiaPercentagem = (TextView) findViewById(R.id.energia_percentagem) ;
-        progressEnergia= (ProgressBar) findViewById(R.id.progressBarEnergia) ;
-        layoutEnergia = (ConstraintLayout) findViewById(R.id.layout_energia) ;
+        txtViewEnergiaTotal = findViewById(R.id.energia_total);
+        txtViewEnergiaMeta = findViewById(R.id.energia_meta);
+        txtViewEnergiaPercentagem = findViewById(R.id.energia_percentagem);
+        progressEnergia= findViewById(R.id.progressBarEnergia);
+        layoutEnergia = findViewById(R.id.layout_energia);
 
-        txtViewProteinasTotal = (TextView) findViewById(R.id.proteinas_total) ;
-        txtViewProteinasMeta = (TextView) findViewById(R.id.proteinas_meta) ;
-        txtViewProteinasPercentagem = (TextView) findViewById(R.id.proteinas_percentagem) ;
-        progressProteinas= (ProgressBar) findViewById(R.id.progressBarProteinas) ;
-        layoutProteinas = (ConstraintLayout) findViewById(R.id.layout_proteinas) ;
+        txtViewProteinasTotal = findViewById(R.id.proteinas_total);
+        txtViewProteinasMeta = findViewById(R.id.proteinas_meta);
+        txtViewProteinasPercentagem = findViewById(R.id.proteinas_percentagem);
+        progressProteinas= findViewById(R.id.progressBarProteinas);
+        layoutProteinas = findViewById(R.id.layout_proteinas);
 
-        txtViewCarboidratosTotal= (TextView) findViewById(R.id.carboidratos_total) ;
-        txtViewCarboidratosMeta = (TextView) findViewById(R.id.carboidratos_meta) ;
-        txtViewCarboidratosPercentagem = (TextView) findViewById(R.id.carboidratos_percentagem) ;
-        progressCarboidratos= (ProgressBar) findViewById(R.id.progressBarCarboidratos) ;
-        layoutCarboidratos= (ConstraintLayout) findViewById(R.id.layout_carboidratos) ;
+        txtViewCarboidratosTotal= findViewById(R.id.carboidratos_total);
+        txtViewCarboidratosMeta = findViewById(R.id.carboidratos_meta);
+        txtViewCarboidratosPercentagem = findViewById(R.id.carboidratos_percentagem);
+        progressCarboidratos= findViewById(R.id.progressBarCarboidratos);
+        layoutCarboidratos= findViewById(R.id.layout_carboidratos);
 
-        txtViewGordurasTotal= (TextView) findViewById(R.id.gorduras_total) ;
-        txtViewGordurasMeta = (TextView) findViewById(R.id.gorduras_meta) ;
-        txtViewGordurasPercentagem = (TextView) findViewById(R.id.gorduras_percentagem) ;
-        progressGorduras= (ProgressBar) findViewById(R.id.progressBarGorduras) ;
-        layoutGorduras =(ConstraintLayout) findViewById(R.id.layout_gorduras) ;
+        txtViewGordurasTotal= findViewById(R.id.gorduras_total);
+        txtViewGordurasMeta = findViewById(R.id.gorduras_meta);
+        txtViewGordurasPercentagem = findViewById(R.id.gorduras_percentagem);
+        progressGorduras= findViewById(R.id.progressBarGorduras);
+        layoutGorduras = findViewById(R.id.layout_gorduras);
 
-        txtViewFibrasTotal= (TextView) findViewById(R.id.fibras_total) ;
-        txtViewFibrasMeta = (TextView) findViewById(R.id.fibras_meta) ;
-        txtViewFibrasPercentagem= (TextView) findViewById(R.id.fibras_percentagem) ;
-        progressFibras= (ProgressBar) findViewById(R.id.progressBarFibras) ;
-        layoutFibras= (ConstraintLayout) findViewById(R.id.layout_fibras) ;
+        txtViewFibrasTotal= findViewById(R.id.fibras_total);
+        txtViewFibrasMeta = findViewById(R.id.fibras_meta);
+        txtViewFibrasPercentagem= findViewById(R.id.fibras_percentagem);
+        progressFibras= findViewById(R.id.progressBarFibras);
+        layoutFibras= findViewById(R.id.layout_fibras);
 
         atualizarPainelTotal(); // ATUALIZA O PAINEL
 
 
         //*********AREA DA LISTAGEM
 
-        List <Refeicao> lista = RefeicoesBancoDados.listarRefeicoes();
-
-        listaDadosView = (RecyclerView) findViewById(R.id.lista_refeicoes_view);
+        List <Refeicao> lista = new RefeicoesBancoDados(getBaseContext()).listarRefeicoes();
+        Collections.reverse(lista);
+        listaDadosView = findViewById(R.id.lista_refeicoes_view);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         listaDadosView.setHasFixedSize(true);
         listaDadosView.setLayoutManager(linearLayoutManager);

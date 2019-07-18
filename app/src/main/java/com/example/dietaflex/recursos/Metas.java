@@ -9,57 +9,65 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 /*
-    public Metas(Context context)   *obs: contexto podem usar: getBaseContext()  se tiver dentro de uma activity ou "this"
 
-    public  float getProteinas()
+METODOS E ATRIBUTOS STATIC - NÂO PRECISAM INSTANCIAR OBJETO
 
-    public  void setProteinas(float proteinas)
+ ******** ATRIBUTOS VALOR PADRAO **********
+    Meta.energiaDefault
+    Meta.proteinasDefault
+    Meta.carboidratosDefault
+    Meta.gordurasDefault
+    Meta.fibrasDefault
+    Meta.resetDefault
 
-    public  float getCarboidratos()
+******* METODOS SET e GET ********  this é o contexto, trocar por getBaseContext se der pau
+*
+    Metas.setPadrao(this) // SETA TUDO PARA VALOR PADRAO
 
-    public  void setCarboidratos(float carboidratos)
+    Metas.getProteinas(this)
 
-    public  float getGorduras()
+    Metas.setProteinas(float valor, this)
 
-    public  void setGorduras(float gorduras)
+    Metas.getCarboidratos(this)
 
-    public  float getFibras()
+    Meta.setCarboidratos(float valor, this)
 
-    public  void setFibras(float fibras, Context context)
+    Meta.getGorduras(this)
 
-    public  String getReset()
+    Meta.setGorduras(float valor, this)
 
-    public  void setReset(String reset)
+    Meta.getFibras(this)
 
-    public  int getEnergia()
+    Meta.setFibras(float valor, this)
 
-    public  void setEnergia(int energia)
+    Meta.getReset(this)
 
-  */
+    Meta.setReset(String valor, this)
 
+    Meta.getEnergia(this)
 
-public final class Metas  {
-    private static final int energiaDefault = 2000 ;
-    private static final float proteinasDefault= 75.0f;
-    private static final float carboidratosDefault= 300.0f ;
-    private static final float gordurasDefault= 55.0f ;
-    private static final float fibrasDefault= 25.0f ;
-    private static final String resetDefault= "00:00" ;
-    private  SharedPreferences config;
-    private  SharedPreferences.Editor metas;
-    private  Context contexto ;
+    Meta.setEnergia( int valor, this)
 
-   /* public  Metas(Context context){
-      contexto =  context;
-        config = contexto.getSharedPreferences("configDietaFlex", Context.MODE_PRIVATE);
-        metas = config.edit();
-    }
 */
 
 
+public final class Metas  {
+
+    public static final int energiaDefault = 2000 ;
+    public static final float proteinasDefault= 75.0f;
+    public static final float carboidratosDefault= 300.0f ;
+    public static final float gordurasDefault= 55.0f ;
+    public static final float fibrasDefault= 25.0f ;
+    public static final String resetDefault= "00:00" ;
 
 
 
+    private static void mensagemErroGet(Context contexto){
+        Toast.makeText(contexto, "Erro:\n Não foi possível recuperar dados ", Toast.LENGTH_LONG).show();
+    }
+    private static void mensagemErroSet(Context contexto){
+        Toast.makeText(contexto, "Erro:\n Não foi possível salvar dados", Toast.LENGTH_LONG).show();
+    }
 
     public  static void  setPadrao(Context contexto){
 
@@ -70,185 +78,141 @@ public final class Metas  {
         setFibras(fibrasDefault, contexto);
         setReset(resetDefault, contexto );
     }
-/*
-
-    public void alertaDeExcecao(Exception e){
-      //  Toast.makeText(contexto,"Erro ao salvar dado",Toast.LENGTH_LONG).show();
-    }
 
 
-    public  float getProteinas() {
-        return config.getFloat("proteinas",proteinasDefault);
-    }
-
-    public  void setProteinas(float proteinas) {
+    public static float getProteinas(Context context) {
         try {
+            SharedPreferences config = context.getSharedPreferences("configDietaFlex", Context.MODE_PRIVATE);
+            return config.getFloat("proteinas", proteinasDefault);
+        }
+        catch (Exception e){
+            mensagemErroGet(context);
+        }
+        return proteinasDefault;
+    }
 
+    public static void setProteinas(float proteinas, Context context) {
+        try {
+            SharedPreferences config = context.getSharedPreferences("configDietaFlex", Context.MODE_PRIVATE);
+            SharedPreferences.Editor metas = config.edit();
             metas.putFloat("proteinas", proteinas);
             metas.apply();
         }
         catch (Exception e){
-            alertaDeExcecao(e);
+            mensagemErroSet(context);
         }
     }
 
-    public  float getCarboidratos() {
-        return config.getFloat("carboidratos",carboidratosDefault);
-    }
-
-    public  void setCarboidratos(float carboidratos) {
+    public static float getCarboidratos(Context context) {
         try {
-            metas.putFloat("carboidratos", carboidratos);
-            metas.apply();
+            SharedPreferences config = context.getSharedPreferences("configDietaFlex", Context.MODE_PRIVATE);
+            return config.getFloat("carboidratos",carboidratosDefault);
         }
         catch (Exception e){
-            alertaDeExcecao(e);
+            mensagemErroGet(context);
+        }
+        return carboidratosDefault;
+    }
+
+    public static void setCarboidratos(float carboidratos, Context context) {
+        try {
+            SharedPreferences config = context.getSharedPreferences("configDietaFlex", Context.MODE_PRIVATE);
+            SharedPreferences.Editor metas = config.edit();
+            metas.putFloat("carboidratos", carboidratos);
+            metas.apply();    }
+        catch (Exception e){
+            mensagemErroSet(context);
         }
     }
 
-    public  float getGorduras() {
-        return config.getFloat("gorduras",gordurasDefault);
+    public static float getGorduras(Context context) {
+        try {
+            SharedPreferences config = context.getSharedPreferences("configDietaFlex", Context.MODE_PRIVATE);
+            return config.getFloat("gorduras",gordurasDefault);
+        }
+        catch (Exception e){
+            mensagemErroGet(context);
+        }
+        return gordurasDefault;
     }
 
-    public  void setGorduras(float gorduras) {
+    public static void setGorduras(float gorduras, Context context) {
         try {
+            SharedPreferences config = context.getSharedPreferences("configDietaFlex", Context.MODE_PRIVATE);
+            SharedPreferences.Editor metas = config.edit();
             metas.putFloat("gorduras", gorduras);
             metas.apply();
         }
         catch (Exception e){
-            alertaDeExcecao(e);
+            mensagemErroSet(context);
         }
-    }
 
-    public  float getFibras() {
-        return config.getFloat("fibras",fibrasDefault);
-    }
-
-    public  void setFibras(float fibras) {
-        try {
-            metas.putFloat("fibras", fibras);
-            metas.apply();
-        }
-        catch (Exception e){
-            alertaDeExcecao(e);
-        }
-    }
-
-    public  String getReset() {
-        return config.getString("reset",resetDefault);
-    }
-
-    public  void setReset(String reset) {
-        try {
-            metas.putString("reset", reset);
-            metas.apply();
-        }
-        catch (Exception e){
-            alertaDeExcecao(e);
-        }
-    }
-
-    public  int getEnergia() {
-        return config.getInt("energia",energiaDefault);
-    }
-
-    public  void setEnergia( int energia) {
-        try {
-            metas.putFloat("energia", energia);
-            metas.apply();
-        }
-        catch (Exception e){
-            alertaDeExcecao(e);
-        }
-    }
-
-
-}
-
-
-Activity.getApplicationContext(): Retorna o contexto do aplicativo inteiro (o processo dentro do qual todas as Activities estão sendo executadas). Use este no lugar do contexto da Activity ativa no momento se você estiver precisando de um contexto vinculado ao ciclo de vida do aplicativo inteiro.
-
-ContextWrapper.getBaseContext(): É um método da classe ContextWrapper. E ContextWrapper é "uma implementação proxy de Context que simplesmente delega todas as suas chamadas para um outro Context. Pode ser estendida para modificar comportamentos sem alterar o Context original."
-
-Fragment.getActivity(): Retorna a Activity à qual está anexado este fragmento. Um fragmento não possui Context por si só; porém, quando se encontra ligado (attached ou added) a uma Activity tem acesso ao contexto dessa Activity, ou então se guarda uma instância de Application tem acesso a essa instância mesmo estando desligado da Activity.
-
-
-
-            */
-
-
-
-
-    public static float getProteinas(Context context) {
-        SharedPreferences config = context.getSharedPreferences("configDietaFlex", Context.MODE_PRIVATE);
-        return config.getFloat("proteinas",proteinasDefault);
-    }
-
-    public static void setProteinas(float proteinas, Context context) {
-        SharedPreferences config = context.getSharedPreferences("configDietaFlex", Context.MODE_PRIVATE);
-        SharedPreferences.Editor metas = config.edit();
-         metas.putFloat("proteinas", proteinas);
-         metas.apply();
-    }
-
-    public static float getCarboidratos(Context context) {
-        SharedPreferences config = context.getSharedPreferences("configDietaFlex", Context.MODE_PRIVATE);
-        return config.getFloat("carboidratos",carboidratosDefault);
-    }
-
-    public static void setCarboidratos(float carboidratos, Context context) {
-        SharedPreferences config = context.getSharedPreferences("configDietaFlex", Context.MODE_PRIVATE);
-        SharedPreferences.Editor metas = config.edit();
-        metas.putFloat("carboidratos", carboidratos);
-        metas.apply();
-    }
-
-    public static float getGorduras(Context context) {
-        SharedPreferences config = context.getSharedPreferences("configDietaFlex", Context.MODE_PRIVATE);
-        return config.getFloat("gorduras",gordurasDefault);
-    }
-
-    public static void setGorduras(float gorduras, Context context) {
-        SharedPreferences config = context.getSharedPreferences("configDietaFlex", Context.MODE_PRIVATE);
-        SharedPreferences.Editor metas = config.edit();
-        metas.putFloat("gorduras", gorduras);
-        metas.apply();
     }
 
     public static float getFibras(Context context) {
-        SharedPreferences config = context.getSharedPreferences("configDietaFlex", Context.MODE_PRIVATE);
-        return config.getFloat("fibras",fibrasDefault);
+        try {
+            SharedPreferences config = context.getSharedPreferences("configDietaFlex", Context.MODE_PRIVATE);
+            return config.getFloat("fibras",fibrasDefault);
+        }
+        catch (Exception e){
+            mensagemErroGet(context);
+        }
+        return fibrasDefault;
     }
 
     public static void setFibras(float fibras, Context context) {
-        SharedPreferences config = context.getSharedPreferences("configDietaFlex", Context.MODE_PRIVATE);
-        SharedPreferences.Editor metas = config.edit();
-        metas.putFloat("fibras", fibras);
-        metas.apply();
+        try {
+            SharedPreferences config = context.getSharedPreferences("configDietaFlex", Context.MODE_PRIVATE);
+            SharedPreferences.Editor metas = config.edit();
+            metas.putFloat("fibras", fibras);
+            metas.apply();            }
+        catch (Exception e){
+            mensagemErroSet(context);
+        }
     }
 
     public static String getReset(Context context) {
-        SharedPreferences config = context.getSharedPreferences("configDietaFlex", Context.MODE_PRIVATE);
-        return config.getString("reset",resetDefault);
+        try {
+            SharedPreferences config = context.getSharedPreferences("configDietaFlex", Context.MODE_PRIVATE);
+            return config.getString("reset",resetDefault);
+        }
+        catch (Exception e){
+            mensagemErroGet(context);
+        }
+        return resetDefault;
     }
 
     public static void setReset(String reset, Context context) {
-        SharedPreferences config = context.getSharedPreferences("configDietaFlex", Context.MODE_PRIVATE);
-        SharedPreferences.Editor metas = config.edit();
-        metas.putString("reset", reset);
-        metas.apply();
+        try {
+            SharedPreferences config = context.getSharedPreferences("configDietaFlex", Context.MODE_PRIVATE);
+            SharedPreferences.Editor metas = config.edit();
+            metas.putString("reset", reset);
+            metas.apply();            }
+        catch (Exception e){
+            mensagemErroSet(context);
+        }
     }
 
     public static int getEnergia(Context context) {
-        SharedPreferences config = context.getSharedPreferences("configDietaFlex", Context.MODE_PRIVATE);
-        return config.getInt("energia",energiaDefault);
+        try {
+            SharedPreferences config = context.getSharedPreferences("configDietaFlex", Context.MODE_PRIVATE);
+            return config.getInt("energia",energiaDefault);
+        }
+        catch (Exception e){
+            mensagemErroGet(context);
+        }
+        return energiaDefault;
     }
 
     public static void setEnergia( int energia, Context context) {
-        SharedPreferences config = context.getSharedPreferences("configDietaFlex", Context.MODE_PRIVATE);
-        SharedPreferences.Editor metas = config.edit();
-        metas.putInt("energia", energia);
-        metas.apply();
+        try {
+            SharedPreferences config = context.getSharedPreferences("configDietaFlex", Context.MODE_PRIVATE);
+            SharedPreferences.Editor metas = config.edit();
+            metas.putInt("energia", energia);
+            metas.apply();            }
+        catch (Exception e){
+            mensagemErroSet(context);
+        }
     }
 
 }

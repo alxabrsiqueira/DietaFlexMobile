@@ -21,12 +21,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,8 +46,7 @@ import java.util.List;
 public class AdicionarAlimentoActivity extends AppCompatActivity {
 
 
-    private EditText  campoQuantidade ;
-    private AutoCompleteTextView campoNomeAlimento;
+
     private int id ;
     private float quantidade ;
     private int codigo;
@@ -61,6 +60,13 @@ public class AdicionarAlimentoActivity extends AppCompatActivity {
     private float carboidratos;
     private float gorduras;
     private float fibras;
+
+    private EditText  campoQuantidade ;
+    private AutoCompleteTextView campoNomeAlimento;
+    private ImageButton botaoLimparCampo;
+    private Button botaoSair;
+    private Button botaoSalvar;
+    private Button botaoExcluir ;
 
 
     private ConstraintLayout layoutMacros;
@@ -110,6 +116,8 @@ public class AdicionarAlimentoActivity extends AppCompatActivity {
     private Totalizacao totalizacaoMacros;
     private Nutricional total;
 
+    private RefeicoesBancoDados refeicoesBancoDados;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -125,52 +133,57 @@ public class AdicionarAlimentoActivity extends AppCompatActivity {
         metaFibras=Metas.getFibras(getBaseContext());
 
 
-        txtViewEnergiaTotal = (TextView) findViewById(R.id.energia_total) ;
-        txtViewEnergiaMeta = (TextView) findViewById(R.id.energia_meta) ;
-        txtViewEnergiaPercentagem = (TextView) findViewById(R.id.energia_percentagem) ;
-        progressEnergia= (ProgressBar) findViewById(R.id.progressBarEnergia) ;
-        layoutEnergia = (ConstraintLayout) findViewById(R.id.layout_energia) ;
+        txtViewEnergiaTotal = findViewById(R.id.energia_total);
+        txtViewEnergiaMeta = findViewById(R.id.energia_meta);
+        txtViewEnergiaPercentagem = findViewById(R.id.energia_percentagem);
+        progressEnergia= findViewById(R.id.progressBarEnergia);
+        layoutEnergia = findViewById(R.id.layout_energia);
 
-        txtViewProteinasTotal = (TextView) findViewById(R.id.proteinas_total) ;
-        txtViewProteinasMeta = (TextView) findViewById(R.id.proteinas_meta) ;
-        txtViewProteinasPercentagem = (TextView) findViewById(R.id.proteinas_percentagem) ;
-        progressProteinas= (ProgressBar) findViewById(R.id.progressBarProteinas) ;
-        layoutProteinas = (ConstraintLayout) findViewById(R.id.layout_proteinas) ;
+        txtViewProteinasTotal = findViewById(R.id.proteinas_total);
+        txtViewProteinasMeta = findViewById(R.id.proteinas_meta);
+        txtViewProteinasPercentagem = findViewById(R.id.proteinas_percentagem);
+        progressProteinas= findViewById(R.id.progressBarProteinas);
+        layoutProteinas = findViewById(R.id.layout_proteinas);
 
-        txtViewCarboidratosTotal= (TextView) findViewById(R.id.carboidratos_total) ;
-        txtViewCarboidratosMeta = (TextView) findViewById(R.id.carboidratos_meta) ;
-        txtViewCarboidratosPercentagem = (TextView) findViewById(R.id.carboidratos_percentagem) ;
-        progressCarboidratos= (ProgressBar) findViewById(R.id.progressBarCarboidratos) ;
-        layoutCarboidratos= (ConstraintLayout) findViewById(R.id.layout_carboidratos) ;
+        txtViewCarboidratosTotal= findViewById(R.id.carboidratos_total);
+        txtViewCarboidratosMeta = findViewById(R.id.carboidratos_meta);
+        txtViewCarboidratosPercentagem = findViewById(R.id.carboidratos_percentagem);
+        progressCarboidratos= findViewById(R.id.progressBarCarboidratos);
+        layoutCarboidratos= findViewById(R.id.layout_carboidratos);
 
-        txtViewGordurasTotal= (TextView) findViewById(R.id.gorduras_total) ;
-        txtViewGordurasMeta = (TextView) findViewById(R.id.gorduras_meta) ;
-        txtViewGordurasPercentagem = (TextView) findViewById(R.id.gorduras_percentagem) ;
-        progressGorduras= (ProgressBar) findViewById(R.id.progressBarGorduras) ;
-        layoutGorduras =(ConstraintLayout) findViewById(R.id.layout_gorduras) ;
+        txtViewGordurasTotal= findViewById(R.id.gorduras_total);
+        txtViewGordurasMeta = findViewById(R.id.gorduras_meta);
+        txtViewGordurasPercentagem = findViewById(R.id.gorduras_percentagem);
+        progressGorduras= findViewById(R.id.progressBarGorduras);
+        layoutGorduras = findViewById(R.id.layout_gorduras);
 
-        txtViewFibrasTotal= (TextView) findViewById(R.id.fibras_total) ;
-        txtViewFibrasMeta = (TextView) findViewById(R.id.fibras_meta) ;
-        txtViewFibrasPercentagem= (TextView) findViewById(R.id.fibras_percentagem) ;
-        progressFibras= (ProgressBar) findViewById(R.id.progressBarFibras) ;
-        layoutFibras= (ConstraintLayout) findViewById(R.id.layout_fibras) ;
+        txtViewFibrasTotal= findViewById(R.id.fibras_total);
+        txtViewFibrasMeta = findViewById(R.id.fibras_meta);
+        txtViewFibrasPercentagem= findViewById(R.id.fibras_percentagem);
+        progressFibras= findViewById(R.id.progressBarFibras);
+        layoutFibras= findViewById(R.id.layout_fibras);
 
-        campoQuantidade = (EditText) findViewById(R.id.campo_quantidade);
-        campoNomeAlimento = (AutoCompleteTextView) findViewById(R.id.campo_nome_alimento);
+        campoQuantidade = findViewById(R.id.campo_quantidade);
+        campoNomeAlimento = findViewById(R.id.campo_nome_alimento);
 
-        layoutMacros=(ConstraintLayout) findViewById(R.id.layout_macros);
-        layoutMensagem=(ConstraintLayout) findViewById(R.id.layout_mensagem);
+        layoutMacros= findViewById(R.id.layout_macros);
+        layoutMensagem= findViewById(R.id.layout_mensagem);
 
-        txtViewEnergia = (TextView) findViewById(R.id.txt_energia_valor) ;
-        txtViewMacros = (TextView) findViewById(R.id.txt_valores_macros) ;
+        txtViewEnergia = findViewById(R.id.txt_energia_valor);
+        txtViewMacros = findViewById(R.id.txt_valores_macros_individual);
 
         nutricionalBancoDados = new NutricionalBancoDados(this);
         listaNutricionalAlimentos = nutricionalBancoDados.listarAlimentos();
 
-        totalizacaoMacros = new Totalizacao(this);
+        totalizacaoMacros = new Totalizacao(getBaseContext());
         total = totalizacaoMacros.macrosGeral();
 
-        Button botaoExcluir = findViewById(R.id.botao_excluir);
+        refeicoesBancoDados = new RefeicoesBancoDados(getBaseContext());
+
+        botaoExcluir = findViewById(R.id.botao_excluir);
+        botaoLimparCampo = findViewById(R.id.botaoLimpar);
+        botaoSalvar = findViewById(R.id.botao_salvar);
+        botaoSair = findViewById(R.id.botao_sair);
 
         verificaParametro(); // verifica se tem dados provindos de outras activities para editar
 
@@ -190,9 +203,9 @@ public class AdicionarAlimentoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try {
-                    RefeicoesBancoDados.removerRefeicao(id); // REMOVE DO BD
+                    refeicoesBancoDados.removerRefeicao(id); // REMOVE DO BD
 
-                    Toast.makeText(getBaseContext(),  "ID: "+id+" REMOVIDO", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), "\""+nome+"\" Foi Removido!", Toast.LENGTH_LONG).show();
 
                     startActivity(new Intent(getBaseContext(), ListarRefeicoesActivity.class));
                     finish();
@@ -205,16 +218,27 @@ public class AdicionarAlimentoActivity extends AppCompatActivity {
             }
         });
 
+        //*********BOTAO LIMPAR CAMPO
+            botaoLimparCampo();
+        botaoLimparCampo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            campoNomeAlimento.setText("");
+            }
+        });
+
         //*********BOTAO SAIR
-        Button botaoSair = findViewById(R.id.botao_sair);
+
         botaoSair.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
+
+
+
         //*********BOTAO SALVAR
-        Button botaoSalvar = findViewById(R.id.botao_salvar);
 
         botaoSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -223,22 +247,21 @@ public class AdicionarAlimentoActivity extends AppCompatActivity {
                 if(validaCampos()){
                     try {
                         Calendar datahorarioAgora = Calendar.getInstance();
+                        datahorarioAgora.add(Calendar.HOUR_OF_DAY,RefeicoesBancoDados.fusoHorario);
                         SimpleDateFormat dataFormatada = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                        Refeicao objeto = new Refeicao();
 
+                        Refeicao objeto = new Refeicao();
                         objeto.grupo = 1;
-                        objeto.quantidade = Float.parseFloat(campoQuantidade.getText().toString());;
+                        objeto.quantidade = Float.parseFloat(campoQuantidade.getText().toString());
                         objeto.datahorario = dataFormatada.format(datahorarioAgora.getTime());
                         objeto.codigo = codigo;
                         objeto.id = id;
 
                         if(eEditar){
 
-                            RefeicoesBancoDados.editarRefeicao(objeto); // EDITA O BD
+                            refeicoesBancoDados.editarRefeicao(objeto); // EDITA O BD
 
-                            Toast.makeText(getBaseContext(),  "Codigo: "+objeto.codigo, Toast.LENGTH_SHORT).show();
-                            Toast.makeText(getBaseContext(),  "\n ID: "+objeto.id, Toast.LENGTH_SHORT).show();
-                            Toast.makeText(getBaseContext(),  "\n Quantidade: "+objeto.quantidade, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getBaseContext(),  "\""+nome+"\" foi Editado! ", Toast.LENGTH_LONG).show();
 
                             startActivity(new Intent(getBaseContext(), ListarRefeicoesActivity.class));
                             finish();
@@ -246,9 +269,10 @@ public class AdicionarAlimentoActivity extends AppCompatActivity {
                         }
                         else {
 
-                            RefeicoesBancoDados.adicionarRefeicao(objeto); // SALVA NOVO ITEM
+                            refeicoesBancoDados.adicionarRefeicao(objeto); // SALVA NOVO ITEM
 
-                            Toast.makeText(getBaseContext(),  R.string.txt_salvo_com_sucesso, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getBaseContext(), "\""+nome+"\" foi Adicionado!", Toast.LENGTH_LONG).show();
+
                             startActivity(new Intent(getBaseContext(), ListarRefeicoesActivity.class));
                             finish();
                         }
@@ -269,21 +293,11 @@ public class AdicionarAlimentoActivity extends AppCompatActivity {
 
         ArrayAdapter<Nutricional> adapter = new ArrayAdapter<Nutricional>(this,
                 android.R.layout.simple_dropdown_item_1line,  listaNutricionalAlimentos);
-        AutoCompleteTextView actv = (AutoCompleteTextView) findViewById(R.id.campo_nome_alimento);
-        actv.setThreshold(1);
-        actv.setAdapter(adapter);
-        actv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Nutricional selected = (Nutricional) parent.getAdapter().getItem(position);
-                Toast.makeText(getBaseContext(),
-                        "Codigo: " + selected.codigo+ " - Nome: " + selected.nome,
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
+        campoNomeAlimento.setThreshold(1);
+        campoNomeAlimento.setAdapter(adapter);
+
         //-----------fim auto complete
 
-//   android:singleLine="true"
 
 
         //********* PAINEL DE MACROS INDIVIDUAL
@@ -291,6 +305,7 @@ public class AdicionarAlimentoActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 atualizarValoresMacros();
+                botaoLimparCampo ();
             }
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -317,6 +332,48 @@ public class AdicionarAlimentoActivity extends AppCompatActivity {
 
     } // FIM DO ONCREATED
 
+    // *******METODO pARA RECEBER DADOS PASSADOS PELA ACTIVITY LISTA DE REFEICOES
+    private void verificaParametro(){
+        try{
+            Bundle bundle= getIntent().getExtras();
+            if ((bundle != null) && (bundle.containsKey("REFEICAO"))){
+                Refeicao refeicao = (Refeicao) bundle.getSerializable("REFEICAO");
+                this.id = refeicao.id ;
+                this.codigo = refeicao.codigo ;
+                this.quantidade = refeicao.quantidade ;
+                eEditar=true;
+                for (Nutricional temp : listaNutricionalAlimentos) {
+                    if (temp.codigo == this.codigo) {
+                        this.nome = temp.nome;
+                        break;
+                    }
+                }
+            }
+        }
+        catch (Exception e){
+            Toast.makeText(getBaseContext(),  "ERRO AO RECEBER DADOS", Toast.LENGTH_SHORT).show();
+        }
+    }
+    //-------fim funcao editar
+
+    private void atualizarValoresMacros() {
+        txtQuantidade = campoQuantidade.getText().toString();
+        if(verificarCamposVazios(txtQuantidade))
+            txtQuantidade = "0";
+        quantidade = Float.parseFloat(txtQuantidade);
+        txtAlimento = campoNomeAlimento.getText().toString();
+
+        Nutricional totalizacao = totalizacaoMacros.macrosIndividual(txtAlimento, quantidade);
+        codigo = totalizacao.codigo;
+        energia = totalizacao.energia;
+        proteinas = totalizacao.proteinas;
+        carboidratos = totalizacao.carboidratos;
+        gorduras = totalizacao.gorduras;
+        fibras = totalizacao.fibras;
+        nome =  txtAlimento;
+        atualizarQuadroMacros();
+
+    }
     //*******FUnçÃO ATUALIZAR MACRO NUTRIENTES
 
     private void atualizarQuadroMacros(){
@@ -344,175 +401,6 @@ public class AdicionarAlimentoActivity extends AppCompatActivity {
     }
     //-------fim funcao ATUALIZAR MACRONUTRIENTES
 
-    private void atualizarValoresMacros() {
-        txtQuantidade = campoQuantidade.getText().toString();
-        if(verificarCamposVazios(txtQuantidade))
-            txtQuantidade = "0";
-        quantidade = Float.parseFloat(txtQuantidade);
-        txtAlimento = campoNomeAlimento.getText().toString();
-
-        Nutricional totalizacao = totalizacaoMacros.macrosIndividual(txtAlimento, quantidade);
-        codigo = totalizacao.codigo;
-        energia = totalizacao.energia;
-        proteinas = totalizacao.proteinas;
-        carboidratos = totalizacao.carboidratos;
-        gorduras = totalizacao.gorduras;
-        fibras = totalizacao.fibras;
-        nome =  txtAlimento;
-        atualizarQuadroMacros();
-
-    }
-    //*******METODO pARA RECEBER DADOS PASSADOS PELA ACTIVITY LISTA DE REFEICOES
-    private void verificaParametro(){
-        try{
-            Bundle bundle= getIntent().getExtras();
-            if ((bundle != null) && (bundle.containsKey("REFEICAO"))){
-                Refeicao refeicao = (Refeicao) bundle.getSerializable("REFEICAO");
-                this.id = refeicao.id ;
-                this.codigo = refeicao.codigo ;
-                this.quantidade = refeicao.quantidade ;
-                eEditar=true;
-                for (Nutricional temp : listaNutricionalAlimentos) {
-                    if (temp.codigo == this.codigo) {
-                        this.nome = temp.nome;
-                        break;
-                    }
-                }
-            }
-        }
-        catch (Exception e){
-            Toast.makeText(getBaseContext(),  "ERRO AO RECEBER DADOS", Toast.LENGTH_SHORT).show();
-        }
-    }
-    //-------fim funcao editar
-
-
-
-    //*********METODOS UTILITARIOS
-    private boolean verificarCamposVazios(String valor){
-        boolean resultado = (TextUtils.isEmpty(valor) || valor.trim().isEmpty());
-        return resultado; // retorna verdadeiro se tiver vazio
-    }
-    private boolean verificarCodigo(String valor){//retorna false se não houver na BD
-        if (!verificarCamposVazios(valor)) {
-            for(Nutricional temp : listaNutricionalAlimentos) {
-                if(temp.nome.equals(valor)) {
-                    codigo= temp.codigo;
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-    private boolean validaCampos() {
-
-        boolean flag = false;
-        txtQuantidade = campoQuantidade.getText().toString();
-        txtAlimento = campoNomeAlimento.getText().toString();
-        String mensagem = "";
-
-
-        if (flag = verificarCamposVazios(txtAlimento)) {
-            campoNomeAlimento.requestFocus();
-            mensagem = getString(R.string.msg_alimento_nao_especificado);
-        }
-        else
-        if(!verificarCodigo(txtAlimento)){
-            flag =true;
-            campoNomeAlimento.requestFocus();
-            mensagem = getString(R.string.msg_alimento_nao_consta);
-        }
-        else
-        if (flag = verificarCamposVazios(txtQuantidade)){
-            campoQuantidade.requestFocus();
-            mensagem = getString(R.string.msg_quatidade_nao_especificada);
-        }
-
-        if(flag){
-            AlertDialog.Builder janela = new AlertDialog.Builder(this);
-            janela.setMessage(mensagem);
-            janela.setNegativeButton("Ok", null);
-            janela.show();
-            return false;
-        }
-        else
-            return true;
-
-    }
-    private String truncar(float valor) {
-        DecimalFormat decimalFormat = new DecimalFormat("###.#");
-        return  decimalFormat.format(valor);
-    }
-    private int verificarDivisivel(int valor){
-        if(valor == 0){
-            return 1 ;
-        }
-        return valor;
-    }
-    private float verificarDivisivel(float valor){
-        if(valor == 0){
-            return 1 ;
-        }
-        return valor;
-    }
-    //--------fim dos metodos utilitarios
-
-
-
-
-
-
-
-    //******* AREA DO MENU DO TOPO
-    public boolean onCreateOptionsMenu(Menu menu){
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_toolbar,menu);
-
-        MenuItem m1 = menu.findItem(R.id.menu_adicionar_refeicao);
-        m1.setVisible(false);
-
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    public boolean onOptionsItemSelected(MenuItem item){
-        int id = item.getItemId();
-        switch(id){
-            case R.id.menu_totais:
-                startActivity(new Intent(getBaseContext(), TotaisActivity.class));
-                break;
-            case R.id.menu_listar_refeicoes:
-                startActivity(new Intent(getBaseContext(), ListarRefeicoesActivity.class));
-                break;
-            case R.id.menu_configurar_metas:
-                startActivity(new Intent(getBaseContext(), MetasActivity.class));
-                break;
-            case R.id.menu_sobre_nos:
-                startActivity(new Intent(getBaseContext(), SobreNosActivity.class));
-                break;
-            case R.id.menu_adicionar_refeicao:
-                startActivity(new Intent(getBaseContext(), AdicionarAlimentoActivity.class));
-                break;
-            case R.id.menu_fechar:
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setMessage("Deseja realmente sair?")
-                        .setCancelable(false)
-                        .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                finishAffinity();
-                            }
-                        })
-                        .setNegativeButton("Não", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
-                AlertDialog alert = builder.create();
-                alert.show();
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-// -------- FIM DO MENU DO TOPO
 
     // ********** ATUALIZAR O PAINEL DE MACROSNUTRIENTES GERAL
     private void atualizarPainelTotal(){
@@ -554,7 +442,7 @@ public class AdicionarAlimentoActivity extends AppCompatActivity {
 
         // atualizacao da parte carboidratos
         soma = (int)(total.carboidratos+carboidratos);
-         meta = Math.round(metaCarboidrato);
+        meta = Math.round(metaCarboidrato);
         txtViewCarboidratosTotal.setText(String.valueOf(soma));
         txtViewCarboidratosMeta.setText(String.valueOf(meta));
         percentagem = (soma*100/meta)+"%";
@@ -571,7 +459,7 @@ public class AdicionarAlimentoActivity extends AppCompatActivity {
 
         // atualizacao da parte gorduras
         soma = (int)(total.gorduras+gorduras);
-         meta = Math.round(metaGorduras);
+        meta = Math.round(metaGorduras);
         txtViewGordurasTotal.setText(String.valueOf(soma));
         txtViewGordurasMeta.setText(String.valueOf(meta));
         percentagem = (soma*100/meta)+"%";
@@ -588,7 +476,7 @@ public class AdicionarAlimentoActivity extends AppCompatActivity {
 
         // atualizacao da parte fibras
         soma = (int)(total.fibras+fibras);
-         meta = Math.round(metaFibras);
+        meta = Math.round(metaFibras);
         txtViewFibrasTotal.setText(String.valueOf(soma));
         txtViewFibrasMeta.setText(String.valueOf(meta));
         percentagem = (soma*100/meta)+"%";
@@ -604,8 +492,6 @@ public class AdicionarAlimentoActivity extends AppCompatActivity {
             layoutFibras.setBackgroundColor(Color.parseColor(getString(R.color.fundoclaro)));
 
 
-
-
         // verifica se algum passou da meta e muda cor da caixa de msg
         if(flaglayoutMacros) {
             layoutMacros.setBackgroundColor(Color.parseColor(getString(R.color.destaque_alerta)));
@@ -617,6 +503,133 @@ public class AdicionarAlimentoActivity extends AppCompatActivity {
 
 
     //-----------fim da area do painel
+
+    //********MOSTRA BOTAO DE LIMPAR CAMPO
+    private void botaoLimparCampo (){
+        if (verificarCamposVazios(campoNomeAlimento.getText().toString())) {
+            botaoLimparCampo.setVisibility(ImageButton.GONE);
+        }else{
+            botaoLimparCampo.setVisibility(ImageButton.VISIBLE);
+        }
+    }
+
+    //*********METODOS UTILITARIOS
+    private boolean verificarCamposVazios(String valor){
+        boolean resultado = (TextUtils.isEmpty(valor) || valor.trim().isEmpty());
+        return resultado; // retorna verdadeiro se tiver vazio
+    }
+    private boolean verificarCodigo(String valor){//retorna false se não houver na BD
+        if (!verificarCamposVazios(valor)) {
+            for(Nutricional temp : listaNutricionalAlimentos) {
+                if(temp.nome.equals(valor)) {
+                    this.codigo= temp.codigo;
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    private boolean validaCampos() {
+
+        boolean flag = false;
+        txtQuantidade = campoQuantidade.getText().toString();
+        txtAlimento = campoNomeAlimento.getText().toString();
+        String mensagem = "";
+
+
+        if (flag = verificarCamposVazios(txtAlimento)) {
+            campoNomeAlimento.requestFocus();
+            mensagem = getString(R.string.msg_alimento_nao_especificado);
+        }
+        else
+        if(!verificarCodigo(txtAlimento)){
+            flag =true;
+            campoNomeAlimento.requestFocus();
+            mensagem = getString(R.string.msg_alimento_nao_consta);
+        }
+        else
+        if (flag = verificarCamposVazios(txtQuantidade)){
+            campoQuantidade.requestFocus();
+            mensagem = getString(R.string.msg_quatidade_nao_especificada);
+        }
+
+        if(flag){
+            AlertDialog.Builder janela = new AlertDialog.Builder(this);
+            janela.setMessage(mensagem);
+            janela.setNegativeButton("Ok", null);
+            janela.show();
+            return false;
+        }
+        else
+            return true;
+
+    }
+
+    private String truncar(float valor) {
+        float retorno;
+        if(valor >=10)
+            retorno = Math.round(valor);
+        else
+            retorno = valor;
+        DecimalFormat decimalFormat = new DecimalFormat("0.#");
+        return  decimalFormat.format(retorno);
+    }
+
+    //--------fim dos metodos utilitarios
+
+
+
+   //******* AREA DO MENU DO TOPO
+   public boolean onCreateOptionsMenu(Menu menu){
+       MenuInflater inflater = getMenuInflater();
+       inflater.inflate(R.menu.menu_toolbar,menu);
+
+       MenuItem m1 = menu.findItem(R.id.menu_adicionar_refeicao);
+       m1.setVisible(false);
+
+       return super.onCreateOptionsMenu(menu);
+   }
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        int id = item.getItemId();
+        switch(id){
+            case R.id.menu_totais:
+                startActivity(new Intent(getBaseContext(), TotaisActivity.class));
+                break;
+            case R.id.menu_listar_refeicoes:
+                startActivity(new Intent(getBaseContext(), ListarRefeicoesActivity.class));
+                break;
+            case R.id.menu_configurar_metas:
+                startActivity(new Intent(getBaseContext(), MetasActivity.class));
+                break;
+            case R.id.menu_sobre_nos:
+                startActivity(new Intent(getBaseContext(), SobreNosActivity.class));
+                break;
+            case R.id.menu_adicionar_refeicao:
+                startActivity(new Intent(getBaseContext(), AdicionarAlimentoActivity.class));
+                break;
+            case R.id.menu_fechar:
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage("Deseja realmente sair?")
+                        .setCancelable(false)
+                        .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                finishAffinity();
+                            }
+                        })
+                        .setNegativeButton("Não", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog alert = builder.create();
+                alert.show();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+// -------- FIM DO MENU DO TOPO
+
 }
 
 

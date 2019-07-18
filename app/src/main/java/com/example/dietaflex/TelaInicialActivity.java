@@ -3,11 +3,8 @@ package com.example.dietaflex;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,8 +13,6 @@ import android.widget.Toast;
 
 import com.example.dietaflex.banco_de_dados.NutricionalBancoDados;
 import com.example.dietaflex.banco_de_dados.RefeicoesBancoDados;
-import com.example.dietaflex.recursos.Nutricional;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -25,16 +20,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.List;
 
 
 public class TelaInicialActivity extends AppCompatActivity {
 
     private NutricionalBancoDados mBancoImport;
-    private RefeicoesBancoDados dadosRefeicao;
-    private SQLiteDatabase conexao;
-    private ConstraintLayout layoutContentMain;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,15 +34,12 @@ public class TelaInicialActivity extends AppCompatActivity {
 
         getSupportActionBar().hide();
 
-        layoutContentMain = (ConstraintLayout)findViewById(R.id.layout_tela_inicial);
-
         //coloca tela em fullscreen
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        inicializarBancoDados();
 
 
-        //aguarda o delay e roda uma  thread que inicia a activity
+                //aguarda o delay e roda uma  thread que inicia a activity
         new Handler(). postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -119,31 +106,5 @@ public class TelaInicialActivity extends AppCompatActivity {
 
 
 
-/*
-    //FAZ A CONEXAO COM O BANCO
-    private void criarConexao(){
 
-        try{
-
-            dadosRefeicao = new RefeicoesBancoDados(this);
-
-            conexao = dadosRefeicao.getWritableDatabase();
-
-            Snackbar.make(layoutContentMain, "Conexão criada com sucesso!", Snackbar.LENGTH_SHORT)
-                    .setAction("OK",null).show();
-
-        }
-        catch (SQLException ex){
-
-            AlertDialog.Builder dlg = new AlertDialog.Builder(this);
-            dlg.setTitle("Erro");
-            dlg.setMessage(ex.getMessage());
-            dlg.setNeutralButton("OK", null);
-            dlg.show();
-
-        }
-
-    }
-
-    */
 

@@ -6,7 +6,18 @@ import com.example.dietaflex.banco_de_dados.NutricionalBancoDados;
 import com.example.dietaflex.banco_de_dados.RefeicoesBancoDados;
 
 import java.util.List;
+/*
+//***************************************
+    Totalizacao(Context contexto)  CONSTRUTOR USAR this COMO CONTEXTO
 
+    Nutricional macrosGeral() RETORNA UM OBJETO COM OS VALORES TOTAIS DE MACRONUTRIENTES
+
+    Nutricional macrosIndividual(int codigo, float quantidade)  RETORNA UM OBJETO COM OS VALORES PROPORCIONAIS DE MACRONUTRIENTES
+
+    Nutricional macrosIndividual(String nome, float quantidade)
+
+//***************************************
+*/
 public class Totalizacao {
 
     public int id ;
@@ -22,11 +33,14 @@ public class Totalizacao {
     private String nome ;
     private Context contexto;
     private List<Nutricional> listaNutricionalAlimentos ;
+    private RefeicoesBancoDados refeicoesBancoDados;
+
 
     public Totalizacao(Context contexto){
         this.contexto = contexto;
         NutricionalBancoDados nutricionalBancoDados = new NutricionalBancoDados(contexto);
         listaNutricionalAlimentos = nutricionalBancoDados.listarAlimentos();
+        refeicoesBancoDados = new RefeicoesBancoDados(contexto);
     }
 
 
@@ -107,7 +121,7 @@ public class Totalizacao {
     //*********RETORNA UM OBJETO COM OS VALORES TOTAIS DE MACRONUTRIENTES
     public   Nutricional macrosGeral() {
         Nutricional retorno = new Nutricional();
-        for (Refeicao temp : RefeicoesBancoDados.listarRefeicoes() ) {
+        for (Refeicao temp : refeicoesBancoDados.listarRefeicoes() ) {
 
             Nutricional nutriTemp =  macrosIndividual(temp.codigo, temp.quantidade);
 

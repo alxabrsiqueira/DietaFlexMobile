@@ -14,10 +14,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.dietaflex.AdicionarAlimentoActivity;
 import com.example.dietaflex.R;
 
+
 import java.util.List;
 
 public class ListaAdapter extends RecyclerView.Adapter<ListaAdapter.ViewHolderLista> {
-
 
     private List<Refeicao> dados;
     private Totalizacao totalizacao ;
@@ -28,8 +28,13 @@ public class ListaAdapter extends RecyclerView.Adapter<ListaAdapter.ViewHolderLi
     }
 
     private String truncar(float valor) {
-        DecimalFormat decimalFormat = new DecimalFormat("#,#0.0");
-        return  decimalFormat.format(valor);
+        float retorno;
+        if(valor >=10)
+            retorno = Math.round(valor);
+        else
+            retorno = valor;
+        DecimalFormat decimalFormat = new DecimalFormat("#.#");
+        return  decimalFormat.format(retorno);
     }
 
     @Override
@@ -39,7 +44,6 @@ public class ListaAdapter extends RecyclerView.Adapter<ListaAdapter.ViewHolderLi
 
         totalizacao = new Totalizacao(parent.getContext());
 
-
         ViewHolderLista retorno = new ViewHolderLista(view, parent.getContext());
         return retorno;
     }
@@ -48,8 +52,10 @@ public class ListaAdapter extends RecyclerView.Adapter<ListaAdapter.ViewHolderLi
     public void onBindViewHolder (ListaAdapter.ViewHolderLista holder, int position) {
 
         if((dados!=null)&&(dados.size()>0)) {
+
             Refeicao valor = dados.get(position);
             Nutricional macros = totalizacao.macrosIndividual(valor.codigo,valor.quantidade);
+
 
             String  qnt =  String.valueOf((int)valor.quantidade);
             String  pro =  truncar(macros.proteinas);
@@ -57,6 +63,7 @@ public class ListaAdapter extends RecyclerView.Adapter<ListaAdapter.ViewHolderLi
             String  gor =  truncar(macros.gorduras);
             String  fib =  truncar(macros.fibras);
             String  ene =  String.valueOf(macros.energia);
+
 
             String textoSuperior = qnt+" g - "+macros.nome;
             String textoInferior = ene+" kcal | P: "+pro+" g | C: "+car+" g | G: "+gor+" g | F: "+fib+" g"  ;
@@ -79,8 +86,8 @@ public class ListaAdapter extends RecyclerView.Adapter<ListaAdapter.ViewHolderLi
 
         public ViewHolderLista( View itemView,final Context contexto) {
             super(itemView);
-            txtSuperior = (TextView) itemView.findViewById(R.id.texto_qnt_e_nome);
-            txtInferior = (TextView) itemView.findViewById(R.id.texto_energia_macros);
+            txtSuperior = itemView.findViewById(R.id.texto_qnt_e_nome);
+            txtInferior = itemView.findViewById(R.id.texto_energia_macros);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

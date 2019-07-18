@@ -27,4 +27,5 @@
     <string name="excluir">Excluir</string>
     <string name="msg_nenhum_alimento_selecionado">Nenhum alimento selecionado.</string>
     <string name="fibras">Fibras</string>
+    <string name="digitar">Insira um valor..</string>
 </resources>

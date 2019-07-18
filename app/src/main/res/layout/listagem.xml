@@ -11,6 +11,7 @@
         android:id="@+id/texto_qnt_e_nome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/fundoclaro"
         android:text=""
         android:textSize="18sp"
         android:textStyle="bold" />
@@ -19,6 +20,7 @@
         android:id="@+id/texto_energia_macros"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@android:color/background_light"
         android:text="TextView"
         android:textSize="15sp"
         tools:text="Alimentos não foram adicionados ainda. " />

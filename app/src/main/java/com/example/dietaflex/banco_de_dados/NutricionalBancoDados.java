@@ -19,7 +19,7 @@ public class NutricionalBancoDados extends SQLiteOpenHelper {
     public static final String LOCALDB = "/data/data/com.example.dietaflex/databases/";
     public static final int VERSAO = 1;
     private Context mContext;
-    private SQLiteDatabase connection;
+    private SQLiteDatabase conexao;
 
 
     public NutricionalBancoDados(Context context) {
@@ -41,57 +41,33 @@ public class NutricionalBancoDados extends SQLiteOpenHelper {
     public void openDataBase(){
 
         String dbPath = mContext.getDatabasePath(NOMEDB).getPath();
-        if( connection != null && connection.isOpen()){
+        if( conexao != null && conexao.isOpen()){
 
             return;
         }
-        connection = SQLiteDatabase.openDatabase(dbPath,null,SQLiteDatabase.OPEN_READWRITE);
+        conexao = SQLiteDatabase.openDatabase(dbPath,null,SQLiteDatabase.OPEN_READWRITE);
 
     }
 
     // METODO FECHA BD USAR NO BOTAO DE SAIR DO APP
     public void closeDataBase(){
 
-        if(connection != null){
+        if(conexao != null){
 
-            connection.close();
+            conexao.close();
 
         }
 
 
     }
-  /*  public List<Nutricional> listarAlimentos(){
-        openDataBase();
-        connection = this.getWritableDatabase();
-        List<Nutricional> listPessoa = new ArrayList<Nutricional>();
-        String sql = "SELECT * FROM  bdNutrientes ORDER BY alimento ASC";
-        Cursor cursor = connection.rawQuery(sql,null);
-        if (cursor.getCount()>0){
-            if (cursor.moveToFirst()){
-                do{
 
-                    Nutricional nutrientes = new Nutricional();
-                    nutrientes.codigo      = cursor.getInt(0);
-                    nutrientes.nome    = cursor.getString(1);
-                    listPessoa.add(nutrientes);
-
-                }while(cursor.moveToNext());
-            }
-        }
-        cursor.close();
-        connection.close();
-        return listPessoa;
-
-    }
-
-*/
-  public List<Nutricional> listarAlimentos(){
+    public List<Nutricional> listarAlimentos(){
 
         openDataBase();
-        connection = this.getWritableDatabase();
+        conexao = this.getWritableDatabase();
         List<Nutricional> listNutrientes = new ArrayList<Nutricional>();
         String sql = "SELECT * FROM bdNutrientes ORDER BY alimento ASC";
-        Cursor cursor = connection.rawQuery(sql,null);
+        Cursor cursor = conexao.rawQuery(sql,null);
 
         if ( cursor.getCount()>0 ){
             if ( cursor.moveToFirst()){
@@ -99,12 +75,12 @@ public class NutricionalBancoDados extends SQLiteOpenHelper {
                     Nutricional nutrientes = new Nutricional();
 
                     //PARA RETORNAR OS DADOS DA BASE
-                  nutrientes.codigo      = cursor.getInt( cursor.getColumnIndexOrThrow("codigo") );
+                    nutrientes.codigo      = cursor.getInt( cursor.getColumnIndexOrThrow("codigo") );
                     nutrientes.nome    = cursor.getString( cursor.getColumnIndexOrThrow("alimento") );
-                   nutrientes.energia = cursor.getInt( cursor.getColumnIndexOrThrow("energia") );
-                   nutrientes.proteinas =  cursor.getFloat( cursor.getColumnIndexOrThrow("proteina") );
-                   nutrientes.gorduras =  cursor.getFloat( cursor.getColumnIndexOrThrow("gordura") );
-                   nutrientes.carboidratos =   cursor.getFloat( cursor.getColumnIndexOrThrow("carboidrato") );
+                    nutrientes.energia = cursor.getInt( cursor.getColumnIndexOrThrow("energia") );
+                    nutrientes.proteinas =  cursor.getFloat( cursor.getColumnIndexOrThrow("proteina") );
+                    nutrientes.gorduras =  cursor.getFloat( cursor.getColumnIndexOrThrow("carboidrato") ); // OBS: colunas carboidrato e gordura estao trocados no bd
+                    nutrientes.carboidratos =    cursor.getFloat( cursor.getColumnIndexOrThrow("gordura") );
                     nutrientes.fibras =  cursor.getFloat( cursor.getColumnIndexOrThrow("fibra") );
 
                     listNutrientes.add(nutrientes);
@@ -113,7 +89,7 @@ public class NutricionalBancoDados extends SQLiteOpenHelper {
             }
         }
         cursor.close();
-        connection.close();
+        conexao.close();
 
         return listNutrientes;
     }
@@ -135,7 +111,7 @@ public class NutricionalBancoDados extends SQLiteOpenHelper {
         parametros[0] = String.valueOf(codigo);
 
         //retorna objeto tipo cursor
-        Cursor cursor = connection.rawQuery(sql.toString(),parametros);
+        Cursor cursor = conexao.rawQuery(sql.toString(),parametros);
 
 
 
@@ -149,8 +125,8 @@ public class NutricionalBancoDados extends SQLiteOpenHelper {
             nutrientes.nome    = cursor.getString( cursor.getColumnIndexOrThrow("alimento") );
             nutrientes.energia = cursor.getInt( cursor.getColumnIndexOrThrow("energia") );
             nutrientes.proteinas =  cursor.getFloat( cursor.getColumnIndexOrThrow("proteina") );
-            nutrientes.gorduras =  cursor.getFloat( cursor.getColumnIndexOrThrow("gordura") );
-            nutrientes.carboidratos =   cursor.getFloat( cursor.getColumnIndexOrThrow("carboidrato") );
+            nutrientes.gorduras =  cursor.getFloat( cursor.getColumnIndexOrThrow("carboidrato") ); // NOTA: BD FICOU COM COLUNAS CARBO E GORDURA TROCADOS
+            nutrientes.carboidratos =   cursor.getFloat( cursor.getColumnIndexOrThrow("gorduras") );
             nutrientes.fibras =  cursor.getFloat( cursor.getColumnIndexOrThrow("fibra") );
 
             return nutrientes;
@@ -169,37 +145,6 @@ public class NutricionalBancoDados extends SQLiteOpenHelper {
 /*
 
 
-    //*********************************************************************************
-
-    //private int[] energia;
-    //private String[] nome = new String[10];
-    //private float[] proteinas= new float[10];
-    //private float[] carboidratos= new float[10];
-    //private float[] gorduras= new float[10];
-    //private float[] fibras= new float[10];
-
-    public static  List <Nutricional> listarAlimentos() {
-
-        List<Nutricional> alimentos = new ArrayList<Nutricional>();
-
-        //abaixo deve ficar a listagem do BD NUTRICIONAL
-        for(int i = 0; i < 10; i++) {
-
-            Nutricional aaaa = new Nutricional();
-            aaaa.nome = nome[i];
-            aaaa.energia = energia[i];
-            aaaa.proteinas= proteinas[i];
-            aaaa.carboidratos= carboidratos[i];
-            aaaa.gorduras= gorduras[i];
-            aaaa.fibras= fibras[i];
-            aaaa.codigo= i+1;
-
-            alimentos.add(aaaa); // adiciona o objeto a lista
-        }
-        //FIM listagem do BD NUTRICIONAL
-
-        return alimentos;
-    }
 
 
 
