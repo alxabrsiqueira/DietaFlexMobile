@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_energia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="8dp">
+
+        <ProgressBar
+            android:id="@+id/progressBarEnergia"
+            style="?android:progressBarStyleHorizontal"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:background="@drawable/circlefundo"
+            android:max="100"
+            android:progress="50"
+            android:progressDrawable="@drawable/circle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.216"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/energia_percentagem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="000%"
+            app:layout_constraintBottom_toBottomOf="@+id/progressBarEnergia"
+            app:layout_constraintEnd_toEndOf="@+id/progressBarEnergia"
+            app:layout_constraintStart_toStartOf="@+id/progressBarEnergia"
+            app:layout_constraintTop_toTopOf="@+id/progressBarEnergia" />
+
+        <TextView
+            android:id="@+id/lbl_energia"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:gravity="center"
+            android:text="Energia"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/energia_percentagem" />
+
+        <TextView
+            android:id="@+id/energia_total"
+            android:layout_width="0dp"
+            android:layout_height="22dp"
+            android:layout_marginTop="27dp"
+            android:gravity="center"
+            android:text="000"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/energia_percentagem" />
+
+        <TextView
+            android:id="@+id/energia_meta"
+            android:layout_width="0dp"
+            android:layout_height="19dp"
+            android:layout_marginTop="42dp"
+            android:gravity="center"
+            android:text="0000"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.562"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/energia_percentagem" />
+
+        <TextView
+            android:id="@+id/kcal"
+            android:layout_width="0dp"
+            android:layout_height="16dp"
+            android:layout_marginTop="56dp"
+            android:gravity="center"
+            android:text="kcal"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toEndOf="@+id/lbl_energia"
+            app:layout_constraintStart_toStartOf="@+id/lbl_energia"
+            app:layout_constraintTop_toBottomOf="@+id/energia_percentagem" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_proteinas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/layout_carboidratos">
+
+        <ProgressBar
+            android:id="@+id/progressBarProteinas"
+            style="?android:progressBarStyleHorizontal"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+
+            android:background="@drawable/circlefundo"
+            android:max="100"
+            android:progress="100"
+            android:progressDrawable="@drawable/circle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/proteinas_percentagem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="000%"
+            app:layout_constraintBottom_toBottomOf="@+id/progressBarProteinas"
+            app:layout_constraintEnd_toEndOf="@+id/progressBarProteinas"
+            app:layout_constraintStart_toStartOf="@+id/progressBarProteinas"
+            app:layout_constraintTop_toTopOf="@+id/progressBarProteinas" />
+
+        <TextView
+            android:id="@+id/lbl_proteinas"
+            android:layout_width="54dp"
+            android:layout_height="18dp"
+            android:layout_marginTop="14dp"
+            android:gravity="center"
+            android:text="Proteinas"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@+id/progressBarProteinas"
+            app:layout_constraintStart_toStartOf="@+id/progressBarProteinas"
+            app:layout_constraintTop_toBottomOf="@+id/proteinas_percentagem" />
+
+        <TextView
+            android:id="@+id/proteinas_total"
+            android:layout_width="0dp"
+            android:layout_height="22dp"
+            android:layout_marginTop="27dp"
+            android:gravity="center"
+            android:text="000"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.461"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/proteinas_percentagem" />
+
+        <TextView
+            android:id="@+id/proteinas_meta"
+            android:layout_width="0dp"
+            android:layout_height="19dp"
+            android:layout_marginTop="42dp"
+            android:gravity="center"
+            android:text="0000"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.562"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/proteinas_percentagem" />
+
+        <TextView
+            android:id="@+id/gramas"
+            android:layout_width="0dp"
+            android:layout_height="16dp"
+            android:layout_marginTop="60dp"
+            android:gravity="center"
+            android:text="@string/txt_gramas"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/proteinas_percentagem" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_carboidratos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp">
+
+        <ProgressBar
+            android:id="@+id/progressBarCarboidratos"
+            style="?android:progressBarStyleHorizontal"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+
+            android:background="@drawable/circlefundo"
+            android:max="100"
+            android:progress="100"
+            android:progressDrawable="@drawable/circle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/carboidratos_percentagem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="000%"
+            app:layout_constraintBottom_toBottomOf="@+id/progressBarCarboidratos"
+            app:layout_constraintEnd_toEndOf="@+id/progressBarCarboidratos"
+            app:layout_constraintStart_toStartOf="@+id/progressBarCarboidratos"
+            app:layout_constraintTop_toTopOf="@+id/progressBarCarboidratos" />
+
+        <TextView
+            android:id="@+id/lbl_carboidratos"
+            android:layout_width="wrap_content"
+            android:layout_height="18dp"
+            android:layout_marginTop="14dp"
+            android:gravity="center"
+            android:text="Carboidratos"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@+id/progressBarCarboidratos"
+            app:layout_constraintStart_toStartOf="@+id/progressBarCarboidratos"
+            app:layout_constraintTop_toBottomOf="@+id/carboidratos_percentagem" />
+
+        <TextView
+            android:id="@+id/carboidratos_total"
+            android:layout_width="0dp"
+            android:layout_height="22dp"
+            android:layout_marginTop="27dp"
+            android:gravity="center"
+            android:text="000"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.461"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/carboidratos_percentagem" />
+
+        <TextView
+            android:id="@+id/carboidratos_meta"
+            android:layout_width="0dp"
+            android:layout_height="19dp"
+            android:layout_marginTop="42dp"
+            android:gravity="center"
+            android:text="0000"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.562"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/carboidratos_percentagem" />
+
+        <TextView
+            android:id="@+id/gramas"
+            android:layout_width="0dp"
+            android:layout_height="16dp"
+            android:layout_marginTop="56dp"
+            android:gravity="center"
+            android:text="@string/txt_gramas"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/carboidratos_percentagem" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_gorduras"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        tools:layout_editor_absoluteX="241dp">
+
+        <ProgressBar
+            android:id="@+id/progressBarGorduras"
+            style="?android:progressBarStyleHorizontal"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/circlefundo"
+            android:max="100"
+            android:progress="100"
+            android:progressDrawable="@drawable/circle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/gorduras_percentagem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="000%"
+            app:layout_constraintBottom_toBottomOf="@+id/progressBarGorduras"
+            app:layout_constraintEnd_toEndOf="@+id/progressBarGorduras"
+            app:layout_constraintStart_toStartOf="@+id/progressBarGorduras"
+            app:layout_constraintTop_toTopOf="@+id/progressBarGorduras" />
+
+        <TextView
+            android:id="@+id/lbl_gorduras"
+            android:layout_width="wrap_content"
+            android:layout_height="18dp"
+            android:layout_marginTop="14dp"
+            android:gravity="center"
+            android:text="Gorduras"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@+id/progressBarGorduras"
+            app:layout_constraintStart_toStartOf="@+id/progressBarGorduras"
+            app:layout_constraintTop_toBottomOf="@+id/gorduras_percentagem" />
+
+        <TextView
+            android:id="@+id/gorduras_total"
+            android:layout_width="wrap_content"
+            android:layout_height="22dp"
+            android:layout_marginTop="27dp"
+            android:gravity="center"
+            android:text="000"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/lbl_gorduras"
+            app:layout_constraintHorizontal_bias="0.461"
+            app:layout_constraintStart_toStartOf="@+id/lbl_gorduras"
+            app:layout_constraintTop_toBottomOf="@+id/gorduras_percentagem" />
+
+        <TextView
+            android:id="@+id/gorduras_meta"
+            android:layout_width="wrap_content"
+            android:layout_height="19dp"
+            android:layout_marginTop="42dp"
+            android:gravity="center"
+            android:text="0000"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@+id/gorduras_total"
+            app:layout_constraintHorizontal_bias="0.562"
+            app:layout_constraintStart_toStartOf="@+id/gorduras_total"
+            app:layout_constraintTop_toBottomOf="@+id/gorduras_percentagem" />
+
+        <TextView
+            android:id="@+id/gramas"
+            android:layout_width="wrap_content"
+            android:layout_height="16dp"
+            android:layout_marginTop="56dp"
+            android:gravity="center"
+            android:text="@string/txt_gramas"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toEndOf="@+id/gorduras_meta"
+            app:layout_constraintStart_toStartOf="@+id/gorduras_meta"
+            app:layout_constraintTop_toBottomOf="@+id/gorduras_percentagem" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_fibras"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        tools:layout_editor_absoluteX="276dp">
+
+        <ProgressBar
+            android:id="@+id/progressBarFibras"
+            style="?android:progressBarStyleHorizontal"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:background="@drawable/circlefundo"
+            android:gravity="center"
+            android:max="100"
+            android:progress="100"
+            android:progressDrawable="@drawable/circle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/fibras_percentagem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="000%"
+            app:layout_constraintBottom_toBottomOf="@+id/progressBarFibras"
+            app:layout_constraintEnd_toEndOf="@+id/progressBarFibras"
+            app:layout_constraintStart_toStartOf="@+id/progressBarFibras"
+            app:layout_constraintTop_toTopOf="@+id/progressBarFibras" />
+
+        <TextView
+            android:id="@+id/lbl_fibras"
+            android:layout_width="wrap_content"
+            android:layout_height="18dp"
+            android:layout_marginTop="14dp"
+            android:gravity="center"
+            android:text="@string/fibras"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@+id/progressBarFibras"
+            app:layout_constraintStart_toStartOf="@+id/progressBarFibras"
+            app:layout_constraintTop_toBottomOf="@+id/fibras_percentagem" />
+
+        <TextView
+            android:id="@+id/fibras_total"
+            android:layout_width="0dp"
+            android:layout_height="22dp"
+            android:layout_marginTop="27dp"
+            android:gravity="center"
+            android:text="000"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.461"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fibras_percentagem" />
+
+        <TextView
+            android:id="@+id/fibras_meta"
+            android:layout_width="0dp"
+            android:layout_height="19dp"
+            android:layout_marginTop="42dp"
+            android:gravity="center"
+            android:text="0000"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.562"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fibras_percentagem" />
+
+        <TextView
+            android:id="@+id/gramas"
+            android:layout_width="0dp"
+            android:layout_height="16dp"
+            android:layout_marginTop="56dp"
+            android:gravity="center"
+            android:text="@string/txt_gramas"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fibras_percentagem" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>
